@@ -6,7 +6,7 @@
 
 @media (max-width: 992px) {
     .main-content {
-        padding-top: 0;
+        padding-top: 20px; /* Buffer for fixed header on mobile */
     }
 }
 
@@ -29,7 +29,7 @@
 
 @media (max-width: 992px) {
     .standard-page-header {
-        padding-top: 70px;
-        min-height: calc(70px + 150px);
+        padding-top: 100px; /* Increased padding to clear navbar */
+        min-height: calc(100px + 150px);
     }
 }

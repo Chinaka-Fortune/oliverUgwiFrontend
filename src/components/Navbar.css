@@ -205,13 +205,16 @@
 
 .nav-cta:hover {
     background-color: #fff !important;
-    color: var(--primary-green) !important;
+    color: var(--primary-navy) !important;
 }
 
 .mobile-toggle {
     display: none;
     cursor: pointer;
-    color: var(--primary-navy);
+    color: white; /* Ensure visibility against navy */
+    padding: 0.5rem;
+    position: relative;
+    z-index: 1001;
 }
 
 .scrolled .mobile-toggle {
@@ -225,25 +228,32 @@
 
     .nav-links {
         position: fixed;
-        top: 70px;
+        top: 0;
         left: -100%;
         width: 100%;
-        height: calc(100vh - 70px);
-        background-color: var(--bg-main);
+        height: 100vh;
+        background-color: var(--primary-navy);
         flex-direction: column;
-        align-items: flex-start;
-        padding: 2rem;
-        transition: var(--transition);
-        border-top: 1px solid var(--border-light);
+        align-items: center;
+        justify-content: center;
+        padding: 4rem 2rem;
+        transition: all 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0);
+        z-index: 999;
+        overflow-y: auto;
     }
 
     .nav-links.active {
         left: 0;
     }
 
-    .navbar.scrolled .nav-links>a,
-    .navbar.scrolled .dropdown-title {
-        color: var(--primary-navy);
+    .nav-links > a, 
+    .dropdown-title {
+        font-size: 1.25rem;
+        padding: 1rem;
+        width: 100%;
+        text-align: center;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        color: white !important;
     }
 
     .mobile-toggle {
@@ -263,16 +273,19 @@
     .mobile-only-links {
         display: flex;
         flex-direction: column;
-        gap: 1.25rem;
+        gap: 0;
         width: 100%;
         margin: 1rem 0;
-        padding-top: 1.5rem;
-        border-top: 1px solid rgba(0, 0, 0, 0.1);
+        padding-top: 1rem;
+        border-top: 2px solid var(--accent-gold);
     }
 
     .mobile-only-links a {
-        color: var(--primary-navy) !important;
-        font-weight: 600;
-        font-size: 1rem;
+        color: white !important;
+        font-weight: 500;
+        font-size: 1.1rem;
+        padding: 1rem;
+        text-align: center;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     }
 }
