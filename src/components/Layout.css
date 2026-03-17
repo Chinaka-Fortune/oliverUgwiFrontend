@@ -1,0 +1,35 @@
+/* Layout.css — removed wrapper padding to allow flush backgrounds */
+
+.main-content {
+    padding-top: 0;
+}
+
+@media (max-width: 992px) {
+    .main-content {
+        padding-top: 0;
+    }
+}
+
+/* Reusable header class for consistent navbar offsets */
+.standard-page-header {
+    padding-top: 152px;
+    min-height: calc(152px + 200px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--primary-navy);
+    background-image: linear-gradient(rgba(8, 23, 48, 0.8), rgba(8, 23, 48, 0.7)), url('/about-hero.png');
+    background-size: cover;
+    background-position: center;
+    color: #fff;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+}
+
+@media (max-width: 992px) {
+    .standard-page-header {
+        padding-top: 70px;
+        min-height: calc(70px + 150px);
+    }
+}

@@ -1,0 +1,222 @@
+.service-header {
+    min-height: 552px; /* 400px + 152px offset */
+    padding-top: 152px; /* Desktop Offset */
+    display: flex;
+    align-items: center;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    background-color: var(--primary-navy);
+}
+
+.service-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, rgba(8, 23, 48, 0.9) 0%, rgba(8, 23, 48, 0.4) 100%);
+}
+
+.service-header.maritime-bg {
+    background-image: url('/maritime-hero.png');
+}
+
+.service-header.air-bg {
+    background-image: url('/air-cargo-hero.png');
+}
+
+.service-header.merch-bg {
+    background-image: url('/merchandise-hero.png');
+}
+
+.service-header.customs-bg {
+    background: linear-gradient(135deg, var(--primary-navy) 0%, #D4AF37 100%);
+}
+
+.service-header.warehousing-bg {
+    background: linear-gradient(135deg, var(--primary-navy) 0%, #708090 100%);
+}
+
+.header-content {
+    position: relative;
+    z-index: 2;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 3rem;
+    border-radius: 12px;
+    text-align: center;
+}
+
+.header-content h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: #fff;
+}
+
+.header-content p {
+    font-size: 1.1rem;
+    opacity: 0.9;
+    line-height: 1.6;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+}
+
+.feature-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    background: var(--bg-light);
+    padding: 1rem;
+    border-radius: 8px;
+    transition: var(--transition);
+}
+
+.feature-item:hover {
+    background: #fff;
+    box-shadow: var(--shadow-sm);
+    transform: translateY(-2px);
+}
+
+.feature-item .text-accent {
+    font-size: 1.25rem;
+    margin-top: 2px;
+}
+
+.feature-item span {
+    font-weight: 500;
+    color: var(--text-main);
+}
+
+.contact-widget {
+    background: var(--bg-light);
+    padding: 2.5rem;
+    border-radius: 12px;
+    border-top: 5px solid var(--accent-gold);
+    position: relative;
+}
+
+.widget-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: rgba(0, 0, 0, 0.05);
+    border: none;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: var(--text-muted);
+    transition: var(--transition);
+}
+
+.widget-close:hover {
+    background: rgba(255, 0, 0, 0.1);
+    color: #e74c3c;
+}
+
+.contact-widget h3 {
+    color: var(--primary-navy);
+    margin-bottom: 1rem;
+}
+
+.contact-widget p {
+    color: var(--text-muted);
+    margin-bottom: 2rem;
+}
+
+.d-block {
+    display: block;
+    width: 100%;
+    text-align: center;
+}
+
+.flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.gap-2 {
+    gap: 0.5rem;
+}
+
+.mt-lg-0 {
+    margin-top: 0;
+}
+
+/* Process Steps Spacing */
+.process-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+    /* Increased space between 1, 2, 3... */
+    margin-top: 3rem;
+}
+
+.step {
+    display: flex;
+    gap: 2rem;
+    align-items: flex-start;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.step:last-child {
+    border-bottom: none;
+}
+
+.step-num {
+    background: var(--primary-navy);
+    color: #fff;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    flex-shrink: 0;
+    box-shadow: 0 4px 10px rgba(93, 110, 23, 0.3);
+}
+
+.step-content h4 {
+    margin-bottom: 0.5rem;
+    color: var(--primary-navy);
+}
+
+.step-content p {
+    color: var(--text-muted);
+    margin: 0;
+}
+
+@media (max-width: 992px) {
+    /* Grid handles this now */
+}
+
+@media (max-width: 768px) {
+    .service-header {
+        min-height: 320px; /* 250px + 70px offset */
+        padding-top: 70px; /* Mobile Offset */
+    }
+
+    .features-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .header-content {
+        padding: 2rem;
+    }
+
+    .header-content h1 {
+        font-size: 2rem;
+    }
+}

@@ -1,0 +1,78 @@
+/* Page header layout and background handled globally in Layout.css via standard-page-header */
+.careers-page .standard-page-header {
+    margin-bottom: 0;
+}
+
+.careers-page .subtitle {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    background: rgba(25, 55, 109, 0.1);
+    color: var(--primary-blue);
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 1rem;
+}
+
+.job-listings h3 {
+    position: relative;
+    padding-bottom: 1rem;
+    margin-bottom: 2rem;
+}
+
+.job-listings h3::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 60px;
+    height: 3px;
+    background: var(--accent-gold);
+}
+
+.job-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(11, 36, 71, 0.8);
+    backdrop-filter: blur(5px);
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+}
+
+.job-modal {
+    background: #fff;
+    width: 100%;
+    max-width: 500px;
+    border-radius: 12px;
+    padding: 2.5rem;
+    position: relative;
+    box-shadow: var(--shadow-lg);
+}
+
+.close-modal {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: transparent;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--text-muted);
+}
+
+.job-modal h2 {
+    margin-bottom: 0.5rem;
+}
+
+.job-modal p {
+    color: var(--text-muted);
+    margin-bottom: 2rem;
+}
