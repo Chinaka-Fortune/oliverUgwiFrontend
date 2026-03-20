@@ -319,8 +319,8 @@
     .pr-lg-5,
     .pl-lg-5,
     .text-column {
-        padding-right: 0;
-        padding-left: 0;
+        padding-right: 1.5rem;
+        padding-left: 1.5rem;
     }
 
     .mvv-grid {
