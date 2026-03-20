@@ -6,7 +6,7 @@
     background-color: #000;
     color: #fff;
     overflow: hidden;
-    padding-top: 152px; /* Desktop Offset */
+    padding-top: 180px; /* Desktop Offset */
     padding-bottom: 80px; /* Space for stats overlap */
 }
 
@@ -478,7 +478,7 @@
 
 @media (max-width: 768px) {
     .hero {
-        padding-top: 70px; /* Mobile Offset */
+        padding-top: 110px; /* Mobile Offset */
     }
 
     .hero-content {

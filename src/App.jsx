@@ -34,6 +34,7 @@ import TestimonialsManagement from './pages/admin/TestimonialsManagement';
 import BillingManagement from './pages/admin/BillingManagement';
 import QuotesManagement from './pages/admin/QuotesManagement';
 import ContactManagement from './pages/admin/ContactManagement';
+import ScrollToTop from './components/ScrollToTop';
 
 // Customer Pages
 import CustomerLayout from './layouts/CustomerLayout';
@@ -47,6 +48,7 @@ import CustomerQuotes from './pages/customer/CustomerQuotes';
 function App() {
   return (
     <Router>
+      <ScrollToTop />
       <Routes>
         {/* Auth routes */}
         <Route path="/login" element={<Layout><Login /></Layout>} />

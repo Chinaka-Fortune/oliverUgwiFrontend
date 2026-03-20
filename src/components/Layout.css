@@ -6,14 +6,14 @@
 
 @media (max-width: 992px) {
     .main-content {
-        padding-top: 20px; /* Buffer for fixed header on mobile */
+        padding-top: 50px; /* Buffer for fixed header on mobile */
     }
 }
 
 /* Reusable header class for consistent navbar offsets */
 .standard-page-header {
-    padding-top: 152px;
-    min-height: calc(152px + 200px);
+    padding-top: 180px;
+    min-height: calc(180px + 200px);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -29,7 +29,7 @@
 
 @media (max-width: 992px) {
     .standard-page-header {
-        padding-top: 100px; /* Increased padding to clear navbar */
-        min-height: calc(100px + 150px);
+        padding-top: 130px; /* Increased padding to clear navbar */
+        min-height: calc(130px + 150px);
     }
 }
