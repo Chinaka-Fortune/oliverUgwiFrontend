@@ -260,7 +260,7 @@
         color: white !important;
     }
 
-    .mobile-toggle {
+    .navbar .mobile-toggle {
         display: flex !important;
         align-items: center;
         justify-content: center;
