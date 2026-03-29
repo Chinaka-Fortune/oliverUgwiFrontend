@@ -264,6 +264,7 @@
         display: flex !important;
         align-items: center;
         justify-content: center;
+        color: #ffffff !important;
         opacity: 1 !important;
         visibility: visible !important;
     }

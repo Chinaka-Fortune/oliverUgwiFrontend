@@ -71,7 +71,7 @@ const AdminLayout = () => {
                         <FiMenu />
                     </button>
                     <div className="header-actions ml-auto">
-                        <span className="text-muted mr-3">Welcome back Admin ({user?.email || 'admin@oliver-ugwi.com'})</span>
+                        <span className="text-muted mr-3 d-none d-md-inline">Welcome back Admin ({user?.email || 'admin@oliver-ugwi.com'})</span>
                         <Link to="/" className="btn btn-outline btn-sm">View Live Site</Link>
                     </div>
                 </header>
