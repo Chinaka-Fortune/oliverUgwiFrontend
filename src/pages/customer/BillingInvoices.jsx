@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { FiDownload, FiCreditCard, FiGlobe, FiEye } from 'react-icons/fi';
+import { FiDownload, FiCreditCard, FiGlobe, FiEye, FiEyeOff } from 'react-icons/fi';
 import { useAuth } from '../../context/AuthContext';
 import { generateBrandedPDF } from '../../utils/pdfGenerator';
 import axios from 'axios';
@@ -12,6 +12,7 @@ const BillingInvoices = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
     const [totalOutstanding, setTotalOutstanding] = useState(0);
+    const [showCvc, setShowCvc] = useState(false);
 
     // Currencies and their symbols
     const terminalCurrencies = {
@@ -253,7 +254,20 @@ const BillingInvoices = () => {
                                 <div className="col-6">
                                     <div className="form-group mb-3">
                                         <label className="d-block mb-1 font-weight-bold font-sm">CVC</label>
-                                        <input type="password" className="form-control w-100 p-2 border rounded" required placeholder="***" />
+                                        <div className="position-relative">
+                                            <input 
+                                                type={showCvc ? "text" : "password"} 
+                                                className="form-control w-100 p-2 border rounded pe-5" 
+                                                required 
+                                                placeholder="***" 
+                                            />
+                                            <div 
+                                                onClick={() => setShowCvc(!showCvc)}
+                                                style={{ position: 'absolute', right: '10px', top: '50%', transform: 'translateY(-50%)', cursor: 'pointer', color: '#6c757d' }}
+                                            >
+                                                {showCvc ? <FiEyeOff /> : <FiEye />}
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { FiMail, FiLock, FiLogIn, FiAlertCircle } from 'react-icons/fi';
+import { FiMail, FiLock, FiLogIn, FiAlertCircle, FiEye, FiEyeOff } from 'react-icons/fi';
 import { useAuth } from '../../context/AuthContext';
 import './Auth.css';
 
 const Login = () => {
     const [formData, setFormData] = useState({ email: '', password: '' });
+    const [showPassword, setShowPassword] = useState(false);
     const navigate = useNavigate();
 
     const { login } = useAuth();
@@ -83,12 +84,17 @@ const Login = () => {
                             <div className="input-group">
                                 <FiLock className="input-icon" />
                                 <input
-                                    type="password"
+                                    type={showPassword ? "text" : "password"}
                                     required
                                     placeholder="••••••••"
                                     value={formData.password}
                                     onChange={e => setFormData({ ...formData, password: e.target.value })}
                                 />
+                                {showPassword ? (
+                                    <FiEyeOff className="password-toggle-icon" onClick={() => setShowPassword(false)} />
+                                ) : (
+                                    <FiEye className="password-toggle-icon" onClick={() => setShowPassword(true)} />
+                                )}
                             </div>
                         </div>
 

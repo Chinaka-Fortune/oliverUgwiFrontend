@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FiUser, FiMail, FiPhone, FiLock, FiSave, FiAlertTriangle } from 'react-icons/fi';
+import { FiUser, FiMail, FiPhone, FiLock, FiSave, FiAlertTriangle, FiEye, FiEyeOff } from 'react-icons/fi';
 import { useAuth } from '../../context/AuthContext';
 
 const Profile = () => {
@@ -19,6 +19,7 @@ const Profile = () => {
     const [profileImage, setProfileImage] = useState(null);
     const [show2FAModal, setShow2FAModal] = useState(false);
     const [twoFactorStep, setTwoFactorStep] = useState(1);
+    const [showPasswords, setShowPasswords] = useState(false);
     const [is2FAEnabled, setIs2FAEnabled] = useState(false);
     const [notifications, setNotifications] = useState({
         email: true,
@@ -224,34 +225,58 @@ const Profile = () => {
                         <form onSubmit={handleResetPassword}>
                             <div className="mb-3">
                                 <label className="d-block mb-1 font-weight-bold font-sm">Current Password</label>
-                                <input
-                                    type="password"
-                                    className="form-control w-100 p-2 border rounded"
-                                    placeholder="Enter current password"
-                                    value={passwordData.current}
-                                    onChange={e => setPasswordData({ ...passwordData, current: e.target.value })}
-                                />
+                                <div className="position-relative">
+                                    <input
+                                        type={showPasswords ? "text" : "password"}
+                                        className="form-control w-100 p-2 border rounded pe-5"
+                                        placeholder="Enter current password"
+                                        value={passwordData.current}
+                                        onChange={e => setPasswordData({ ...passwordData, current: e.target.value })}
+                                    />
+                                    <div 
+                                        onClick={() => setShowPasswords(!showPasswords)}
+                                        style={{ position: 'absolute', right: '10px', top: '50%', transform: 'translateY(-50%)', cursor: 'pointer', color: '#6c757d' }}
+                                    >
+                                        {showPasswords ? <FiEyeOff /> : <FiEye />}
+                                    </div>
+                                </div>
                             </div>
                             <div className="row">
                                 <div className="col-md-6 mb-3">
                                     <label className="d-block mb-1 font-weight-bold font-sm">New Password</label>
-                                    <input
-                                        type="password"
-                                        className="form-control w-100 p-2 border rounded"
-                                        placeholder="Min 8 characters"
-                                        value={passwordData.new}
-                                        onChange={e => setPasswordData({ ...passwordData, new: e.target.value })}
-                                    />
+                                    <div className="position-relative">
+                                        <input
+                                            type={showPasswords ? "text" : "password"}
+                                            className="form-control w-100 p-2 border rounded pe-5"
+                                            placeholder="Min 8 characters"
+                                            value={passwordData.new}
+                                            onChange={e => setPasswordData({ ...passwordData, new: e.target.value })}
+                                        />
+                                        <div 
+                                            onClick={() => setShowPasswords(!showPasswords)}
+                                            style={{ position: 'absolute', right: '10px', top: '50%', transform: 'translateY(-50%)', cursor: 'pointer', color: '#6c757d' }}
+                                        >
+                                            {showPasswords ? <FiEyeOff /> : <FiEye />}
+                                        </div>
+                                    </div>
                                 </div>
                                 <div className="col-md-6 mb-3">
                                     <label className="d-block mb-1 font-weight-bold font-sm">Confirm New Password</label>
-                                    <input
-                                        type="password"
-                                        className="form-control w-100 p-2 border rounded"
-                                        placeholder="Repeat new password"
-                                        value={passwordData.confirm}
-                                        onChange={e => setPasswordData({ ...passwordData, confirm: e.target.value })}
-                                    />
+                                    <div className="position-relative">
+                                        <input
+                                            type={showPasswords ? "text" : "password"}
+                                            className="form-control w-100 p-2 border rounded pe-5"
+                                            placeholder="Repeat new password"
+                                            value={passwordData.confirm}
+                                            onChange={e => setPasswordData({ ...passwordData, confirm: e.target.value })}
+                                        />
+                                        <div 
+                                            onClick={() => setShowPasswords(!showPasswords)}
+                                            style={{ position: 'absolute', right: '10px', top: '50%', transform: 'translateY(-50%)', cursor: 'pointer', color: '#6c757d' }}
+                                        >
+                                            {showPasswords ? <FiEyeOff /> : <FiEye />}
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div className="mt-3">

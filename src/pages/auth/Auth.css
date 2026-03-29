@@ -59,13 +59,25 @@
 
 .input-group input {
     width: 100%;
-    padding: 0.85rem 1rem 0.85rem 3rem;
+    padding: 0.85rem 2.5rem 0.85rem 3rem;
     border: 1px solid var(--border-light);
     border-radius: 8px;
     font-family: var(--font-body);
     font-size: 1rem;
     transition: var(--transition);
     background: #fafafa;
+}
+
+.password-toggle-icon {
+    position: absolute;
+    right: 1rem;
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    cursor: pointer;
+    z-index: 5;
+}
+.password-toggle-icon:hover {
+    color: var(--primary-blue);
 }
 
 .input-group input:focus {

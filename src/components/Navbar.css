@@ -211,14 +211,14 @@
 .mobile-toggle {
     display: none;
     cursor: pointer;
-    color: white; /* Ensure visibility against navy */
+    color: white; 
     padding: 0.5rem;
     position: relative;
     z-index: 1001;
 }
 
 .scrolled .mobile-toggle {
-    color: white;
+    color: white !important;
 }
 
 @media (max-width: 992px) {
@@ -261,7 +261,11 @@
     }
 
     .mobile-toggle {
-        display: block;
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+        opacity: 1 !important;
+        visibility: visible !important;
     }
 
     .dropdown-content {
