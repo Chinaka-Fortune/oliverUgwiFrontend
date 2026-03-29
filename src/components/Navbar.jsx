@@ -69,7 +69,7 @@ const Navbar = () => {
                         <Link to="/quote" className="btn btn-accent nav-cta">Request Quote</Link>
                     </div>
 
-                    <div className="mobile-toggle" onClick={() => setIsOpen(!isOpen)}>
+                    <div className="mobile-toggle d-lg-none" onClick={() => setIsOpen(!isOpen)}>
                         {isOpen ? <FiX size={28} /> : <FiMenu size={28} />}
                     </div>
                 </div>
