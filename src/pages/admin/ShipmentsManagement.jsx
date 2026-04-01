@@ -12,7 +12,7 @@ const ShipmentsManagement = () => {
     const [showUpdateModal, setShowUpdateModal] = useState(false);
     const [editingShipment, setEditingShipment] = useState(null);
     const [formData, setFormData] = useState({
-        origin: '', destination: '', current_location: '', type: 'Maritime', status: 'Pending'
+        origin: '', destination: '', current_location: '', type: 'Maritime Logistics', status: 'Pending'
     });
     const [updateFormData, setUpdateFormData] = useState({
         status: '', current_location: ''
@@ -71,7 +71,7 @@ const ShipmentsManagement = () => {
 
             setSuccess(`Shipment created with Tracking ID: ${data.shipment.tracking_id}`);
             setShipments([data.shipment, ...shipments]);
-            setFormData({ origin: '', destination: '', current_location: '', type: 'Maritime', status: 'Pending' });
+            setFormData({ origin: '', destination: '', current_location: '', type: 'Maritime Logistics', status: 'Pending' });
 
             setTimeout(() => {
                 setShowModal(false);
@@ -233,9 +233,9 @@ const ShipmentsManagement = () => {
                                     <div className="col-6">
                                         <label className="d-block mb-1 font-weight-bold font-sm">Type</label>
                                         <select className="form-control w-100 p-2 border rounded" value={formData.type} onChange={e => setFormData({ ...formData, type: e.target.value })}>
-                                            <option>Maritime</option>
-                                            <option>Air Cargo</option>
-                                            <option>Merchandise</option>
+                                            <option>Maritime Logistics</option>
+                                            <option>Air Cargo Logistics</option>
+                                            <option>General Merchandise</option>
                                         </select>
                                     </div>
                                     <div className="col-6">

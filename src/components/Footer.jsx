@@ -65,7 +65,7 @@ const Footer = () => {
 
                 <div className="footer-bottom mt-5">
                     <div className="footer-bottom-content">
-                        <p>&copy; {new Date().getFullYear()} OLIVER-UGWI GLOBAL SERVICES LTD. All rights reserved.</p>
+                        <p>&copy; {new Date().getFullYear()} OLIVER-UGWI GLOBAL SERVICES LTD.<br className="d-md-none" /> All rights reserved.</p>
                         <div className="footer-legal">
                             <Link to="/company-policy">Company Policy</Link>
                             <Link to="/incoterms">Incoterms® 2020</Link>

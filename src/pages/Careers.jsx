@@ -101,7 +101,7 @@ const Careers = () => {
 
                     <div className="mt-5 text-center bg-light p-5 rounded">
                         <h3>Don't see a matching role?</h3>
-                        <p className="mt-3">Send your CV and a brief cover letter to <strong>careers@oliverugwi.com</strong> and we'll keep you in mind for future openings.</p>
+                        <p className="mt-3">Send your CV and a brief cover letter to <strong>career@oliverugwi.com</strong> and we'll keep you in mind for future openings.</p>
                     </div>
                 </div>
             </section>

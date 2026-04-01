@@ -128,9 +128,8 @@ const RequestQuote = () => {
                                 <select name="service" className="form-control" value={formData.service} onChange={handleInputChange} required>
                                     <option value="">Select Service</option>
                                     <option value="Maritime Logistics">Maritime Logistics</option>
-                                    <option value="Air Cargo">Air Cargo</option>
+                                    <option value="Air Cargo Logistics">Air Cargo Logistics</option>
                                     <option value="General Merchandise">General Merchandise</option>
-                                    <option value="Customs Clearance">Customs Clearance</option>
                                 </select>
                             </div>
                             <div className="col-md-4 mb-4">
@@ -160,7 +159,7 @@ const RequestQuote = () => {
                         </div>
 
                         <div className="mb-4">
-                            <label className="form-label">Attachment (Optional - PWD, Bill of Lading, Air Waybill, Invoice, Packing List, etc)</label>
+                            <label className="form-label">Attachment (Optional - Bill of Lading, Air Waybill, Invoice, Packing List, etc)</label>
                             <input type="file" className="form-control" onChange={handleFileChange} accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" />
                             <small className="text-muted">Max file size: 10MB. Supported: PDF, Images, Word</small>
                         </div>
