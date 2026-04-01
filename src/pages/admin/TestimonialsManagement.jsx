@@ -165,7 +165,7 @@ const TestimonialsManagement = () => {
                                             <td>#{testimonial.id}</td>
                                             <td>
                                                 {testimonial.image_url ? (
-                                                    <img src={`${(import.meta.env.VITE_API_URL || 'http://localhost:5000/api').replace(/\/api$/, '')}${testimonial.image_url}`} alt={testimonial.name} style={{ width: '40px', height: '40px', borderRadius: '50%', objectFit: 'cover' }} />
+                                                    <img src={testimonial.image_url.startsWith('http') ? testimonial.image_url : `${(import.meta.env.VITE_API_URL || 'http://localhost:5000/api').replace(/\/api$/, '')}${testimonial.image_url}`} alt={testimonial.name} style={{ width: '40px', height: '40px', borderRadius: '50%', objectFit: 'cover' }} />
                                                 ) : (
                                                     <img src={`https://ui-avatars.com/api/?name=${encodeURIComponent(testimonial.name)}&background=0b2447&color=d4af37&size=40`} alt={testimonial.name} style={{ borderRadius: '50%' }} />
                                                 )}
@@ -303,7 +303,7 @@ const TestimonialsManagement = () => {
                                 />
                                 {currentTestimonial?.image_url && (
                                     <div className="mt-2 text-muted small">
-                                        Current image: <a href={`${(import.meta.env.VITE_API_URL || 'http://localhost:5000/api').replace(/\/api$/, '')}${currentTestimonial.image_url}`} target="_blank" rel="noopener noreferrer">View Image</a>
+                                        Current image: <a href={currentTestimonial.image_url.startsWith('http') ? currentTestimonial.image_url : `${(import.meta.env.VITE_API_URL || 'http://localhost:5000/api').replace(/\/api$/, '')}${currentTestimonial.image_url}`} target="_blank" rel="noopener noreferrer">View Image</a>
                                     </div>
                                 )}
                             </div>

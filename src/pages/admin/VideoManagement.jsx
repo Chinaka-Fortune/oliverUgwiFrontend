@@ -120,7 +120,7 @@ const VideoManagement = () => {
                             >
                                 <div className="video-card glass-card p-0 overflow-hidden position-relative group">
                                     <video
-                                        src={video.url}
+                                        src={video.url.startsWith('http') ? video.url : `${(import.meta.env.VITE_API_URL || 'http://localhost:5000/api').replace(/\/api$/, '')}${video.url}`}
                                         className="w-100"
                                         style={{ height: '200px', objectFit: 'cover' }}
                                         muted
@@ -129,7 +129,9 @@ const VideoManagement = () => {
                                     />
                                     <div className="video-info p-3 d-flex justify-content-between align-items-center">
                                         <span className="text-navy font-sm truncate text-truncate" style={{ maxWidth: '180px' }}>
-                                            {video.filename}
+                                            {video.filename.includes('hero_videos/') 
+                                                ? video.filename.replace('hero_videos/', '') 
+                                                : (video.filename.includes('_') ? video.filename.split('_').slice(2).join('_') || video.filename : video.filename)}
                                         </span>
                                         <button
                                             onClick={() => handleDelete(video.id)}

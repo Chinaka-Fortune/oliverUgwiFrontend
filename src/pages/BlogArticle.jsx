@@ -143,8 +143,8 @@ const BlogArticle = () => {
                         <div style={{
                             width: '100%',
                             height: '400px',
-                            backgroundImage: `url(${(import.meta.env.VITE_API_URL || 'http://localhost:5000/api').replace(/\/api$/, '')}${post.image_url})`,
-                            backgroundSize: 'contain',
+                            backgroundImage: `url(${post.image_url.startsWith('http') ? post.image_url : (import.meta.env.VITE_API_URL || 'http://localhost:5000/api').replace(/\/api$/, '') + post.image_url})`,
+                            backgroundSize: 'cover',
                             backgroundPosition: 'center',
                             backgroundRepeat: 'no-repeat',
                             backgroundColor: '#f8f9fa'

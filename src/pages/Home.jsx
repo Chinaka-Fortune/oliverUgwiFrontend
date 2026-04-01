@@ -36,7 +36,10 @@ const Home = () => {
                 const baseUrl = apiUrl.replace(/\/api$/, '');
                 const response = await axios.get(`${apiUrl}/videos/`);
                 if (response.data.videos && response.data.videos.length > 0) {
-                    const adminVideos = response.data.videos.map(v => ({ ...v, url: `${baseUrl}${v.url}` }));
+                    const adminVideos = response.data.videos.map(v => ({ 
+                        ...v, 
+                        url: v.url.startsWith('http') ? v.url : `${baseUrl}${v.url}` 
+                    }));
                     setVideos([...adminVideos.map(v => v.url), ...DEFAULT_VIDEOS]);
                 }
                 setError('');
@@ -382,7 +385,7 @@ const Home = () => {
                                             <div className="testimonial-author mt-4">
                                                 <div className="author-avatar">
                                                     {testimonial.image_url ? (
-                                                        <img src={`${(import.meta.env.VITE_API_URL || 'http://localhost:5000/api').replace(/\/api$/, '')}${testimonial.image_url}`} alt={testimonial.name} />
+                                                        <img src={testimonial.image_url.startsWith('http') ? testimonial.image_url : `${(import.meta.env.VITE_API_URL || 'http://localhost:5000/api').replace(/\/api$/, '')}${testimonial.image_url}`} alt={testimonial.name} />
                                                     ) : (
                                                         <img src={`https://ui-avatars.com/api/?name=${encodeURIComponent(testimonial.name)}&background=0b2447&color=d4af37&size=150&font-size=0.4&bold=true`} alt={testimonial.name} />
                                                     )}

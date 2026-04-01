@@ -200,7 +200,7 @@ const BlogManagement = () => {
                                         <td>
                                             <div className="d-flex align-items-center gap-3">
                                                 {blog.image_url ? (
-                                                    <img src={`${(import.meta.env.VITE_API_URL || 'http://localhost:5000/api').replace(/\/api$/, '')}${blog.image_url}`} alt="" style={{ width: '40px', height: '40px', objectFit: 'cover', borderRadius: '4px' }} />
+                                                    <img src={blog.image_url.startsWith('http') ? blog.image_url : `${(import.meta.env.VITE_API_URL || 'http://localhost:5000/api').replace(/\/api$/, '')}${blog.image_url}`} alt="" style={{ width: '40px', height: '40px', objectFit: 'cover', borderRadius: '4px' }} />
                                                 ) : (
                                                     <div style={{ width: '40px', height: '40px', background: '#eee', borderRadius: '4px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><FiImage /></div>
                                                 )}
@@ -269,7 +269,7 @@ const BlogManagement = () => {
                                     />
                                     {formData.image_url && (
                                         <div className="mt-2">
-                                            <img src={`${(import.meta.env.VITE_API_URL || 'http://localhost:5000/api').replace(/\/api$/, '')}${formData.image_url}`} alt="Preview" style={{ width: '100%', height: '150px', objectFit: 'contain', borderRadius: '4px', backgroundColor: '#f8f9fa' }} />
+                                            <img src={formData.image_url.startsWith('http') ? formData.image_url : `${(import.meta.env.VITE_API_URL || 'http://localhost:5000/api').replace(/\/api$/, '')}${formData.image_url}`} alt="Preview" style={{ width: '100%', height: '150px', objectFit: 'contain', borderRadius: '4px', backgroundColor: '#f8f9fa' }} />
                                         </div>
                                     )}
                                 </div>

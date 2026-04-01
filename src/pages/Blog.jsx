@@ -96,11 +96,11 @@ const Blog = () => {
                                         <div
                                             className="blog-img"
                                             style={post.image_url ? {
-                                                backgroundImage: `url(${(import.meta.env.VITE_API_URL || 'http://localhost:5000/api').replace(/\/api$/, '')}${post.image_url})`,
-                                                backgroundSize: 'contain',
+                                                backgroundImage: `url(${post.image_url.startsWith('http') ? post.image_url : (import.meta.env.VITE_API_URL || 'http://localhost:5000/api').replace(/\/api$/, '') + post.image_url})`,
+                                                backgroundSize: 'cover',
                                                 backgroundPosition: 'center',
                                                 backgroundRepeat: 'no-repeat',
-                                                backgroundColor: '#f8f9fa' // subtle background for transparent/letterboxed images
+                                                backgroundColor: '#f8f9fa'
                                             } : { backgroundColor: 'var(--primary-navy)' }}
                                         >
                                             <span className="category-badge scale-up">{post.category}</span>
