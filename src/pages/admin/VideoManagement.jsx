@@ -34,21 +34,41 @@ const VideoManagement = () => {
 
         setUploading(true);
         setError('');
-        const formData = new FormData();
-        formData.append('file', file);
-
+        
         try {
-            await axios.post(`${API_URL}/upload`, formData, {
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Content-Type': 'multipart/form-data'
-                }
+            // 1. Get Secure Signature from our Backend
+            const sigRes = await axios.get(`${API_URL}/signature`, {
+                headers: { 'Authorization': `Bearer ${token}` }
             });
-            setSuccess('Video uploaded successfully!');
+            const { signature, timestamp, cloud_name, api_key, folder } = sigRes.data;
+
+            // 2. Upload directly to Cloudinary API
+            const cloudFormData = new FormData();
+            cloudFormData.append('file', file);
+            cloudFormData.append('signature', signature);
+            cloudFormData.append('timestamp', timestamp);
+            cloudFormData.append('api_key', api_key);
+            cloudFormData.append('folder', folder);
+
+            const uploadRes = await axios.post(
+                `https://api.cloudinary.com/v1_1/${cloud_name}/video/upload`, 
+                cloudFormData
+            );
+
+            // 3. Save the results back to our Database
+            await axios.post(`${API_URL}/save`, {
+                url: uploadRes.data.secure_url,
+                public_id: uploadRes.data.public_id
+            }, {
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+
+            setSuccess('Video uploaded directly to Cloudinary successfully!');
             fetchVideos();
             setTimeout(() => setSuccess(''), 3000);
         } catch (err) {
-            setError(err.response?.data?.msg || 'Upload failed');
+            console.error("Direct Upload Error:", err);
+            setError(err.response?.data?.msg || err.response?.data?.error?.message || 'Upload failed due to connection or size');
         } finally {
             setUploading(false);
         }
