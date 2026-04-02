@@ -180,3 +180,10 @@
 .mt-5 {
     margin-top: 3rem;
 }
+
+/* Responsive Footer Extras */
+@media (min-width: 768px) {
+    .d-md-none {
+        display: none !important;
+    }
+}
