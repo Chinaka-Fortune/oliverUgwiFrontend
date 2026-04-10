@@ -86,7 +86,7 @@ const BlogManagement = () => {
         const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
         const url = editingBlog
             ? `${apiUrl}/blogs/${editingBlog.id}`
-            : `${apiUrl}/blogs/`;
+            : `${apiUrl}/blogs`;
         const method = editingBlog ? 'PUT' : 'POST';
 
         try {
@@ -109,7 +109,8 @@ const BlogManagement = () => {
                 alert(data.msg || "Operation failed");
             }
         } catch (err) {
-            alert("Connection error");
+            console.error("Submission error:", err);
+            alert(`Connection error: ${err.message || 'Check your internet or server status'}`);
         }
     };
 

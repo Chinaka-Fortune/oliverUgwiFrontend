@@ -129,6 +129,7 @@ const VideoManagement = () => {
             ) : (
                 <div className="video-grid row">
                     <AnimatePresence>
+                        {/* 1. Show DATABASE Videos (Cloudinary/Admin) */}
                         {videos.map((video) => (
                             <motion.div
                                 key={video.id}
@@ -148,11 +149,14 @@ const VideoManagement = () => {
                                         onMouseOut={e => { e.target.pause(); e.target.currentTime = 0; }}
                                     />
                                     <div className="video-info p-3 d-flex justify-content-between align-items-center">
-                                        <span className="text-navy font-sm truncate text-truncate" style={{ maxWidth: '180px' }}>
-                                            {video.filename.includes('hero_videos/') 
-                                                ? video.filename.replace('hero_videos/', '') 
-                                                : (video.filename.includes('_') ? video.filename.split('_').slice(2).join('_') || video.filename : video.filename)}
-                                        </span>
+                                        <div className="d-flex flex-column">
+                                            <span className="text-navy font-sm truncate text-truncate" style={{ maxWidth: '180px' }}>
+                                                {video.filename.includes('hero_videos/') 
+                                                    ? video.filename.replace('hero_videos/', '') 
+                                                    : (video.filename.includes('_') ? video.filename.split('_').slice(2).join('_') || video.filename : video.filename)}
+                                            </span>
+                                            <small className="text-primary-blue font-bold" style={{ fontSize: '0.7rem' }}>ADMIN UPLOAD</small>
+                                        </div>
                                         <button
                                             onClick={() => handleDelete(video.id)}
                                             className="btn btn-sm btn-outline-danger border-0"
@@ -167,13 +171,46 @@ const VideoManagement = () => {
                                 </div>
                             </motion.div>
                         ))}
+
+                        {/* 2. Show REPO Default Videos (Local / Read-Only) */}
+                        {['/videos/hero-1.mp4', '/videos/hero-2.mp4', '/videos/hero-3.mp4', '/videos/hero-4.mp4', '/videos/hero-5.mp4'].map((url, idx) => (
+                            <motion.div
+                                key={`default-${idx}`}
+                                layout
+                                initial={{ opacity: 0, scale: 0.9 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                className="col-md-4 mb-4"
+                            >
+                                <div className="video-card glass-card p-0 overflow-hidden position-relative group border-primary">
+                                    <video
+                                        src={url}
+                                        className="w-100"
+                                        style={{ height: '200px', objectFit: 'cover' }}
+                                        muted
+                                        onMouseOver={e => e.target.play()}
+                                        onMouseOut={e => { e.target.pause(); e.target.currentTime = 0; }}
+                                    />
+                                    <div className="video-info p-3 d-flex justify-content-between align-items-center bg-light">
+                                        <div className="d-flex flex-column">
+                                            <span className="text-navy font-sm font-bold">hero-{idx + 1}.mp4</span>
+                                            <small className="text-muted" style={{ fontSize: '0.7rem' }}>SYSTEM DEFAULT (READ-ONLY)</small>
+                                        </div>
+                                        <div className="text-primary-blue">
+                                            <FiCheck title="Active System Video" />
+                                        </div>
+                                    </div>
+                                    <div className="play-overlay position-absolute top-50 start-50 translate-middle opacity-0 group-hover:opacity-100 transition-all pointer-events-none">
+                                        <FiPlay size={40} className="text-white" />
+                                    </div>
+                                </div>
+                            </motion.div>
+                        ))}
                     </AnimatePresence>
+                    
                     {videos.length === 0 && (
-                        <div className="col-12 text-center py-5">
-                            <div className="p-5 glass-card">
-                                <FiUpload size={50} className="text-muted mb-3" />
-                                <h3>No Hero Videos Found</h3>
-                                <p className="text-muted">Upload your first video to get started.</p>
+                        <div className="col-12 mt-4">
+                            <div className="alert alert-info text-center">
+                                Showing 5 System Defaults. No custom admin videos uploaded yet.
                             </div>
                         </div>
                     )}

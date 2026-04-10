@@ -21,7 +21,7 @@ const TestimonialsManagement = () => {
         setIsLoading(true);
         try {
             const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
-            const response = await axios.get(`${apiUrl}/testimonials/`);
+            const response = await axios.get(`${apiUrl}/testimonials`);
             setTestimonials(response.data);
             setError('');
         } catch (err) {
@@ -50,7 +50,7 @@ const TestimonialsManagement = () => {
             }
 
             const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
-            await axios.post(`${apiUrl}/testimonials/`, data, {
+            await axios.post(`${apiUrl}/testimonials`, data, {
                 headers: { 
                     Authorization: `Bearer ${token}`,
                     'Content-Type': 'multipart/form-data'
@@ -62,7 +62,7 @@ const TestimonialsManagement = () => {
             fetchTestimonials();
         } catch (err) {
             console.error("Failed to add testimonial", err);
-            setError('Failed to add testimonial. Please check your inputs.');
+            setError(`Failed to add testimonial: ${err.response?.data?.msg || err.message}`);
         } finally {
             setIsSubmitting(false);
         }
@@ -88,7 +88,7 @@ const TestimonialsManagement = () => {
             }
 
             const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
-            await axios.put(`${apiUrl}/testimonials/${currentTestimonial.id}/`, data, {
+            await axios.put(`${apiUrl}/testimonials/${currentTestimonial.id}`, data, {
                 headers: { 
                     Authorization: `Bearer ${token}`,
                     'Content-Type': 'multipart/form-data'
@@ -113,7 +113,7 @@ const TestimonialsManagement = () => {
         try {
             const token = localStorage.getItem('token');
             const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
-            await axios.delete(`${apiUrl}/testimonials/${id}/`, {
+            await axios.delete(`${apiUrl}/testimonials/${id}`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             fetchTestimonials();

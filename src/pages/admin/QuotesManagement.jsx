@@ -62,11 +62,12 @@ const QuotesManagement = () => {
                 setSelectedQuote(null);
                 fetchQuotes();
             } else {
-                alert("Failed to save reply");
+                const data = await response.json();
+                alert(`Error: ${data.msg || "Failed to save reply"}`);
             }
         } catch (err) {
             console.error("Error replying to quote:", err);
-            alert("Connection error");
+            alert(`Connection error: ${err.message}. Please check your internet and try again.`);
         } finally {
             setSubmittingReply(false);
         }

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { FiSearch, FiCalendar, FiUser, FiArrowRight } from 'react-icons/fi';
 import SEO from '../components/SEO';
+import OptimizedImage from '../components/OptimizedImage';
 import './Blog.css';
 
 const Blog = () => {
@@ -93,16 +94,13 @@ const Blog = () => {
                                         whileHover={{ y: -5 }}
                                         className="blog-card glass-card"
                                     >
-                                        <div
-                                            className="blog-img"
-                                            style={post.image_url ? {
-                                                backgroundImage: `url(${post.image_url.startsWith('http') ? post.image_url : (import.meta.env.VITE_API_URL || 'http://localhost:5000/api').replace(/\/api$/, '') + post.image_url})`,
-                                                backgroundSize: 'cover',
-                                                backgroundPosition: 'center',
-                                                backgroundRepeat: 'no-repeat',
-                                                backgroundColor: '#f8f9fa'
-                                            } : { backgroundColor: 'var(--primary-navy)' }}
-                                        >
+                                        <div className="blog-img">
+                                            <OptimizedImage 
+                                                src={post.image_url} 
+                                                alt={post.title} 
+                                                height="220px"
+                                                placeholderColor={post.image_url ? "#f8f9fa" : "var(--primary-navy)"}
+                                            />
                                             <span className="category-badge scale-up">{post.category}</span>
                                         </div>
                                         <div className="blog-content">

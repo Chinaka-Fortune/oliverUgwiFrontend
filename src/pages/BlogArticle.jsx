@@ -3,6 +3,8 @@ import { useParams, Link } from 'react-router-dom';
 import { FiArrowLeft, FiCalendar, FiUser, FiHeart, FiMessageSquare, FiSend, FiTrash2 } from 'react-icons/fi';
 import { useAuth } from '../context/AuthContext';
 import SEO from '../components/SEO';
+import OptimizedImage from '../components/OptimizedImage';
+import './Blog.css';
 
 const BlogArticle = () => {
     const { id } = useParams();
@@ -120,8 +122,35 @@ const BlogArticle = () => {
         }
     };
 
-    if (loading) return <div className="section-padding text-center"><h3>Loading article...</h3></div>;
-    if (!post) return <div className="section-padding text-center"><h3>Article not found.</h3><Link to="/blog">Back to Blog</Link></div>;
+    // Skeleton Loading State for "Text-First" experience
+    if (loading) return (
+        <div className="blog-article-page section-padding bg-light" style={{ paddingTop: 'calc(152px + 5rem)' }}>
+            <div className="container" style={{ maxWidth: '900px' }}>
+                <div className="skeleton-box" style={{ width: '150px', height: '40px' }}></div>
+                <div className="glass-card p-0 overflow-hidden mb-5">
+                    <div className="skeleton" style={{ width: '100%', height: '400px' }}></div>
+                    <div className="p-5">
+                        <div className="skeleton-box skeleton-title mb-4"></div>
+                        <div className="blog-meta mb-4 d-flex gap-4">
+                            <div className="skeleton-box" style={{ width: '120px', height: '20px' }}></div>
+                            <div className="skeleton-box" style={{ width: '120px', height: '20px' }}></div>
+                        </div>
+                        <div className="skeleton-box skeleton-text"></div>
+                        <div className="skeleton-box skeleton-text"></div>
+                        <div className="skeleton-box skeleton-text"></div>
+                        <div className="skeleton-box skeleton-text short"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+
+    if (!post) return (
+        <div className="section-padding text-center">
+            <h3>Article not found.</h3>
+            <Link to="/blog" className="btn btn-primary mt-3">Back to Blog</Link>
+        </div>
+    );
 
     return (
         <div className="blog-article-page section-padding bg-light" style={{ paddingTop: 'calc(152px + 5rem)' }}>
@@ -139,19 +168,14 @@ const BlogArticle = () => {
                 <Link to="/blog" className="btn btn-outline mb-4"><FiArrowLeft /> Back to Blog</Link>
 
                 <article className="glass-card p-0 overflow-hidden mb-5">
-                    {post.image_url && (
-                        <div style={{
-                            width: '100%',
-                            height: '400px',
-                            backgroundImage: `url(${post.image_url.startsWith('http') ? post.image_url : (import.meta.env.VITE_API_URL || 'http://localhost:5000/api').replace(/\/api$/, '') + post.image_url})`,
-                            backgroundSize: 'cover',
-                            backgroundPosition: 'center',
-                            backgroundRepeat: 'no-repeat',
-                            backgroundColor: '#f8f9fa'
-                        }}></div>
-                    )}
+                    <OptimizedImage 
+                        src={post.image_url} 
+                        alt={post.title} 
+                        height="400px" 
+                        placeholderColor={post.image_url ? "#f8f9fa" : "var(--primary-navy)"} 
+                    />
                     <div className="p-5">
-                        <span className="category-badge mb-3 d-inline-block">{post.category}</span>
+                        <span className="category-badge-inline mb-3">{post.category}</span>
                         <h1 className="mb-4">{post.title}</h1>
                         <div className="blog-meta mb-4 d-flex gap-4">
                             <span><FiCalendar /> {new Date(post.created_at).toLocaleDateString()}</span>

@@ -55,7 +55,7 @@ const BillingManagement = () => {
     const handleCreateInvoice = async (e) => {
         e.preventDefault();
         try {
-            await axios.post(`${apiBase}/billing/`, newInvoice, {
+            await axios.post(`${apiBase}/billing`, newInvoice, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             setShowAddModal(false);

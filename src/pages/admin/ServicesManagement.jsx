@@ -20,7 +20,7 @@ const ServicesManagement = () => {
         try {
             setLoading(true);
             const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
-            const response = await fetch(`${apiUrl}/services/`);
+            const response = await fetch(`${apiUrl}/services`);
             const data = await response.json();
             if (response.ok) {
                 setServices(data.services);
@@ -86,7 +86,7 @@ const ServicesManagement = () => {
         }
         try {
             const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
-            const response = await fetch(`${apiUrl}/services/`, {
+            const response = await fetch(`${apiUrl}/services`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -101,10 +101,11 @@ const ServicesManagement = () => {
                 setNewService({ name: '', type: 'Core', status: 'Active', price_factor: 'Dynamic' });
                 showNotification("New service '" + data.service.name + "' added successfully!", "success");
             } else {
-                showNotification(data.msg || "Failed to add service", "error");
+                showNotification(data.msg || "Server returned an error while adding service", "error");
             }
         } catch (err) {
-            showNotification("Server error", "error");
+            console.error("Add Service Error:", err);
+            showNotification(`Connection error: ${err.message}. Please check your internet and try again.`, "error");
         }
     };
 

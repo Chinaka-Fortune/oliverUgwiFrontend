@@ -54,7 +54,7 @@ const ShipmentsManagement = () => {
 
         try {
             const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
-            const response = await fetch(`${apiUrl}/shipments/`, {
+            const response = await fetch(`${apiUrl}/shipments`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -66,7 +66,7 @@ const ShipmentsManagement = () => {
             const data = await response.json();
 
             if (!response.ok) {
-                throw new Error(data.msg || 'Failed to create shipment');
+                throw new Error(data.msg || 'Server returned an error while creating shipment');
             }
 
             setSuccess(`Shipment created with Tracking ID: ${data.shipment.tracking_id}`);
@@ -79,7 +79,8 @@ const ShipmentsManagement = () => {
             }, 3000);
 
         } catch (err) {
-            setError(err.message);
+            console.error("Create Shipment Error:", err);
+            setError(`Connection error: ${err.message}. Please check your internet and try again.`);
         }
     };
 
