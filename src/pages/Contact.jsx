@@ -56,7 +56,7 @@ const Contact = () => {
     const faqs = [
         {
             q: "How do I track my shipment?",
-            a: "You can easily track your shipment using the tracking ID provided when your order is confirmed. Go to exclusively assigned tracking page and enter your ID (e.g., OUG-12345678) in the Quick Trace box."
+            a: "You can easily track your shipment using the tracking ID provided when your order is confirmed. Go to exclusively assigned tracking page and enter your ID (e.g., OUGSL-123456) in the Quick Trace box."
         },
         {
             q: "What documents are required for customs clearance?",

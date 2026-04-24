@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Outlet, Link, useLocation } from 'react-router-dom';
-import { FiHome, FiUsers, FiBox, FiMessageSquare, FiSettings, FiLogOut, FiMenu, FiX, FiBriefcase, FiTag, FiPlay, FiStar, FiDollarSign } from 'react-icons/fi';
+import { FiHome, FiUsers, FiBox, FiMessageSquare, FiSettings, FiLogOut, FiMenu, FiX, FiBriefcase, FiTag, FiPlay, FiStar, FiDollarSign, FiFileText } from 'react-icons/fi';
 import { useAuth } from '../context/AuthContext';
 import './DashboardLayout.css';
 
@@ -13,6 +13,7 @@ const AdminLayout = () => {
     const navItems = [
         { path: '/admin', icon: <FiHome />, label: 'Dashboard' },
         { path: '/admin/shipments', icon: <FiBox />, label: 'Shipments' },
+        { path: '/admin/documents', icon: <FiFileText />, label: 'Documents' },
         { path: '/admin/users', icon: <FiUsers />, label: 'Users & Clients' },
         { path: '/admin/services', icon: <FiBriefcase />, label: 'Services' },
         { path: '/admin/tickets', icon: <FiMessageSquare />, label: 'Support Tickets' },

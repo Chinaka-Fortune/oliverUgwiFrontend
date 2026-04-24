@@ -240,7 +240,7 @@ const Home = () => {
                             <input 
                                 type="text" 
                                 name="trackingId"
-                                placeholder="e.g. OUG-123456" 
+                                placeholder="e.g. OUGSL-123456" 
                                 className="track-input" 
                                 required
                             />

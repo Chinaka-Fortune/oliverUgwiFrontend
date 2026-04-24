@@ -92,7 +92,26 @@ const ContactManagement = () => {
 
     const cleanPhoneForWhatsApp = (phone) => {
         if (!phone) return '';
-        return phone.replace(/[^\d+]/g, '');
+        // Remove all non-digit characters to start clean
+        let digits = phone.replace(/\D/g, '');
+        
+        // Handle Nigerian format: 080... or 070... etc.
+        if (digits.startsWith('0') && digits.length >= 10) {
+            return '+234' + digits.substring(1);
+        }
+        
+        // Handle format already starting with 234 (no leading zero)
+        if (digits.startsWith('234') && digits.length >= 12) {
+            return '+' + digits;
+        }
+        
+        // Fallback: If it's a short 10-digit number, assume it's Nigerian
+        if (digits.length === 10) {
+            return '+234' + digits;
+        }
+
+        // Return with + prefix if digits exist
+        return digits ? '+' + digits : '';
     };
 
     const getStatusBadgeClass = (status) => {
@@ -230,8 +249,9 @@ const ContactManagement = () => {
 
     const handleSendWhatsApp = (e) => {
         e.preventDefault();
-        // Open WhatsApp web with pre-filled message
-        window.open(`https://wa.me/${whatsAppData.phone}?text=${encodeURIComponent(whatsAppData.message)}`, '_blank', 'noreferrer');
+        // Clean the phone number for the URL (wa.me works best with just digits)
+        const urlPhone = whatsAppData.phone.replace(/\+/g, '');
+        window.open(`https://wa.me/${urlPhone}?text=${encodeURIComponent(whatsAppData.message)}`, '_blank', 'noreferrer');
         setIsWhatsApping(false);
         
         // Auto-update status to Replied
@@ -560,8 +580,8 @@ const ContactManagement = () => {
                                 <input 
                                     type="text" 
                                     className="form-control" 
-                                    value={`+${whatsAppData.phone}`} 
-                                    onChange={(e) => setWhatsAppData({...whatsAppData, phone: e.target.value.replace('+', '')})}
+                                    value={whatsAppData.phone} 
+                                    onChange={(e) => setWhatsAppData({...whatsAppData, phone: e.target.value})}
                                     required
                                 />
                             </div>

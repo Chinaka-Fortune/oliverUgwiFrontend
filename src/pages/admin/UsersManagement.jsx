@@ -337,7 +337,7 @@ const UsersManagement = () => {
                                     <span className="text-muted">2 hours ago</span>
                                 </div>
                                 <div className="mb-2 pb-2 border-bottom d-flex justify-content-between">
-                                    <span>Updated shipment status OUG-837492</span>
+                                    <span>Updated shipment status OUGSL-837492</span>
                                     <span className="text-muted">Yesterday</span>
                                 </div>
                                 <div className="d-flex justify-content-between">

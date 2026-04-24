@@ -180,7 +180,7 @@ const SupportTickets = () => {
                         <form onSubmit={handleCreateTicket}>
                             <div className="form-group mb-3">
                                 <label className="d-block mb-1 font-weight-bold font-sm">Subject</label>
-                                <input name="subject" type="text" className="form-control w-100 p-2 border rounded" required placeholder="e.g. Issue with shipment OUG-123456" />
+                                <input name="subject" type="text" className="form-control w-100 p-2 border rounded" required placeholder="e.g. Issue with shipment OUGSL-123456" />
                             </div>
 
                             <div className="form-group mb-3">

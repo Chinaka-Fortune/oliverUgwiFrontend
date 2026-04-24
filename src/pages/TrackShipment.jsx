@@ -47,8 +47,9 @@ const TrackShipment = () => {
         switch (status) {
             case 'Pending': return 1;
             case 'In Transit': return 2;
-            case 'Cleared': return 3;
-            case 'Delivered': return 4;
+            case 'Arrived POD': return 3;
+            case 'Cleared': return 4;
+            case 'Delivered': return 5;
             default: return 0;
         }
     };
@@ -80,7 +81,7 @@ const TrackShipment = () => {
                                         <input
                                             type="text"
                                             className="form-control"
-                                            placeholder="Enter Tracking ID (e.g. OUG-123456)"
+                                            placeholder="Enter Tracking ID (e.g. OUGSL-123456)"
                                             value={trackingId}
                                             onChange={(e) => setTrackingId(e.target.value)}
                                             style={{ padding: '1rem 1rem 1rem 3.5rem', borderRadius: '8px', fontSize: '1.1rem', border: '1px solid var(--border-light)' }}
@@ -135,18 +136,18 @@ const TrackShipment = () => {
                                     {/* Tracking Progress Bar */}
                                     <div className="tracking-progress mt-5 mb-5 position-relative">
                                         <div className="progress mx-auto" style={{ height: '4px', backgroundColor: '#e2e8f0', width: '90%' }}>
-                                            <div className="progress-bar bg-accent" role="progressbar" style={{ width: `${(getStatusStep(shipmentData.status) - 1) * 33.33}%` }}></div>
+                                            <div className="progress-bar bg-accent" role="progressbar" style={{ width: `${(getStatusStep(shipmentData.status) - 1) * 25}%` }}></div>
                                         </div>
 
                                         <div className="d-flex justify-content-between position-relative" style={{ marginTop: '-14px' }}>
-                                            {['Pending', 'In Transit', 'Cleared', 'Delivered'].map((step, index) => {
+                                            {['Pending', 'In Transit', 'Arrived POD', 'Cleared', 'Delivered'].map((step, index) => {
                                                 const stepNum = index + 1;
                                                 const currentStep = getStatusStep(shipmentData.status);
                                                 const isCompleted = stepNum <= currentStep;
                                                 const isCurrent = stepNum === currentStep;
 
                                                 return (
-                                                    <div key={step} className="text-center position-relative" style={{ width: '25%' }}>
+                                                    <div key={step} className="text-center position-relative" style={{ width: '20%' }}>
                                                         <div
                                                             className={`rounded-circle d-flex align-items-center justify-content-center mx-auto mb-2 ${isCompleted ? 'bg-accent text-navy' : 'bg-white border text-muted'}`}
                                                             style={{ 

@@ -150,13 +150,13 @@ const AdminHome = () => {
                                     ) : (
                                         <>
                                             <tr style={{ opacity: 0.5 }}>
-                                                <td><strong>OUG-XXXXXX</strong></td>
+                                                <td><strong>OUGSL-XXXXXX</strong></td>
                                                 <td>Example Origin</td>
                                                 <td>Example Destination</td>
                                                 <td><span className="badge bg-secondary">Placeholder</span></td>
                                             </tr>
                                             <tr style={{ opacity: 0.5 }}>
-                                                <td><strong>OUG-XXXXXX</strong></td>
+                                                <td><strong>OUGSL-XXXXXX</strong></td>
                                                 <td>Example Origin</td>
                                                 <td>Example Destination</td>
                                                 <td><span className="badge bg-secondary">Placeholder</span></td>

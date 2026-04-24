@@ -84,17 +84,40 @@ const ShipmentsManagement = () => {
         }
     };
 
-    const handleUpdateStatus = (e) => {
+    const handleUpdateStatus = async (e) => {
         e.preventDefault();
-        const updated = shipments.map(s =>
-            s.tracking_id === editingShipment.tracking_id
-                ? { ...s, status: updateFormData.status, current_location: updateFormData.current_location, updated_at: new Date().toISOString() }
-                : s
-        );
-        setShipments(updated);
-        alert(`Shipment ${editingShipment.tracking_id} updated successfully!`);
-        setShowUpdateModal(false);
-        setEditingShipment(null);
+        try {
+            const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+            const response = await fetch(`${apiUrl}/shipments/${editingShipment.id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token || localStorage.getItem('token')}`
+                },
+                body: JSON.stringify({
+                    status: updateFormData.status,
+                    current_location: updateFormData.current_location
+                })
+            });
+
+            const data = await response.json();
+            if (response.ok) {
+                const updated = shipments.map(s =>
+                    s.id === editingShipment.id
+                        ? { ...s, status: updateFormData.status, current_location: updateFormData.current_location, updated_at: new Date().toISOString() }
+                        : s
+                );
+                setShipments(updated);
+                alert(`Shipment ${editingShipment.tracking_id} updated successfully!`);
+                setShowUpdateModal(false);
+                setEditingShipment(null);
+            } else {
+                alert(`Error: ${data.msg}`);
+            }
+        } catch (err) {
+            console.error("Update Shipment Error:", err);
+            alert("Failed to update shipment. Server connection error.");
+        }
     };
 
     const handleDeleteShipment = async (id) => {
@@ -128,6 +151,7 @@ const ShipmentsManagement = () => {
         switch (status) {
             case 'Pending': return 'bg-secondary text-white';
             case 'In Transit': return 'bg-warning text-dark';
+            case 'Arrived POD': return 'bg-primary text-white';
             case 'Cleared': return 'bg-info text-white';
             case 'Delivered': return 'bg-success text-white';
             default: return 'bg-secondary text-white';
@@ -244,6 +268,7 @@ const ShipmentsManagement = () => {
                                         <select className="form-control w-100 p-2 border rounded" value={formData.status} onChange={e => setFormData({ ...formData, status: e.target.value })}>
                                             <option>Pending</option>
                                             <option>In Transit</option>
+                                            <option>Arrived POD</option>
                                             <option>Cleared</option>
                                             <option>Delivered</option>
                                         </select>
@@ -279,6 +304,7 @@ const ShipmentsManagement = () => {
                                     >
                                         <option>Pending</option>
                                         <option>In Transit</option>
+                                        <option>Arrived POD</option>
                                         <option>Cleared</option>
                                         <option>Delivered</option>
                                     </select>

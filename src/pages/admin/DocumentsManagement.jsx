@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { FiDownload, FiEye, FiUploadCloud, FiTrash2 } from 'react-icons/fi';
+import { FiDownload, FiEye, FiUploadCloud, FiTrash2, FiEdit2 } from 'react-icons/fi';
 import { useAuth } from '../../context/AuthContext';
 import axios from 'axios';
 
-const DocumentManagement = () => {
+const DocumentsManagement = () => {
     const { user, token } = useAuth();
     const [documents, setDocuments] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
     const [showUploadModal, setShowUploadModal] = useState(false);
+    const [showEditModal, setShowEditModal] = useState(false);
     const [uploading, setUploading] = useState(false);
+    const [selectedDoc, setSelectedDoc] = useState(null);
     const [formData, setFormData] = useState({ title: '', file: null });
 
     useEffect(() => {
@@ -63,6 +65,23 @@ const DocumentManagement = () => {
         }
     };
 
+    const handleEdit = async (e) => {
+        e.preventDefault();
+        const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+        try {
+            const response = await axios.put(`${apiUrl}/documents/${selectedDoc.id}`, 
+                { title: formData.title },
+                { headers: { Authorization: `Bearer ${token || localStorage.getItem('token')}` } }
+            );
+            setDocuments(documents.map(d => d.id === selectedDoc.id ? response.data.document : d));
+            setShowEditModal(false);
+            setSelectedDoc(null);
+        } catch (err) {
+            console.error("Edit error:", err);
+            alert('Failed to update document.');
+        }
+    };
+
     const handleDelete = async (id) => {
         if (!window.confirm('Are you sure you want to delete this document?')) return;
         
@@ -78,6 +97,12 @@ const DocumentManagement = () => {
         }
     };
 
+    const openEditModal = (doc) => {
+        setSelectedDoc(doc);
+        setFormData({ title: doc.title, file: null });
+        setShowEditModal(true);
+    };
+
     if (loading) return (
         <div className="d-flex justify-content-center align-items-center" style={{ height: '300px' }}>
             <div className="spinner-border text-primary-navy" role="status">
@@ -89,7 +114,7 @@ const DocumentManagement = () => {
     return (
         <div>
             <div className="d-flex justify-content-between align-items-center mb-4">
-                <h2 className="text-primary-navy">Document Center</h2>
+                <h2 className="text-primary-navy">Document Management</h2>
                 <button className="btn btn-primary d-flex align-items-center gap-2" onClick={() => setShowUploadModal(true)}>
                     <FiUploadCloud /> Upload Document
                 </button>
@@ -98,8 +123,6 @@ const DocumentManagement = () => {
             <div className="row">
                 <div className="col-12">
                     <div className="dashboard-card position-relative">
-                        <h4 className="mb-4">My Documents</h4>
-                        
                         {error && <div className="alert alert-danger">{error}</div>}
 
                         <div className="table-responsive">
@@ -107,34 +130,33 @@ const DocumentManagement = () => {
                                 <thead>
                                     <tr>
                                         <th>Document Name</th>
+                                        <th>Uploaded By</th>
                                         <th>Type</th>
-                                        <th>Date Added</th>
                                         <th>Size</th>
+                                        <th>Date</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {documents.map((doc) => (
                                         <tr key={doc.id}>
+                                            <td><strong>{doc.title}</strong></td>
                                             <td>
-                                                <div className="d-flex align-items-center gap-2">
-                                                    <div className="avatar bg-light text-danger" style={{ width: '36px', height: '36px', fontSize: '0.9rem' }}>
-                                                        {doc.file_type}
-                                                    </div>
-                                                    <div>
-                                                        <strong className="d-block">{doc.title}</strong>
-                                                    </div>
-                                                </div>
+                                                <div>{doc.user_name}</div>
+                                                <small className="text-muted">{doc.user_email}</small>
                                             </td>
-                                            <td>{doc.file_type}</td>
-                                            <td>{new Date(doc.created_at).toLocaleDateString()}</td>
+                                            <td><span className="badge bg-light text-dark">{doc.file_type}</span></td>
                                             <td>{doc.size}</td>
+                                            <td>{new Date(doc.created_at).toLocaleDateString()}</td>
                                             <td>
                                                 <div className="d-flex gap-2">
                                                     <a href={doc.file_url} target="_blank" rel="noopener noreferrer" className="btn btn-sm btn-outline" title="View/Download">
                                                         <FiEye />
                                                     </a>
-                                                    <button className="btn btn-sm btn-outline text-danger border-danger" title="Delete" onClick={() => handleDelete(doc.id)}>
+                                                    <button className="btn btn-sm btn-outline" title="Edit Title" onClick={() => openEditModal(doc)}>
+                                                        <FiEdit2 />
+                                                    </button>
+                                                    <button className="btn btn-sm" style={{ border: '1px solid #dc3545', color: '#dc3545' }} title="Delete" onClick={() => handleDelete(doc.id)}>
                                                         <FiTrash2 />
                                                     </button>
                                                 </div>
@@ -143,13 +165,13 @@ const DocumentManagement = () => {
                                     ))}
                                     {documents.length === 0 && !error && (
                                         <tr>
-                                            <td colSpan="5" className="text-center py-4 text-muted">No documents found. Upload your documents here.</td>
+                                            <td colSpan="6" className="text-center py-4 text-muted">No documents uploaded yet.</td>
                                         </tr>
                                     )}
                                 </tbody>
                             </table>
                         </div>
-
+                        
                         {/* Upload Modal */}
                         {showUploadModal && (
                             <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: 'rgba(0,0,0,0.5)', zIndex: 9999, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -177,6 +199,28 @@ const DocumentManagement = () => {
                                 </div>
                             </div>
                         )}
+
+                        {/* Edit Modal */}
+                        {showEditModal && selectedDoc && (
+                            <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: 'rgba(0,0,0,0.5)', zIndex: 9999, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                <div className="dashboard-card" style={{ width: '100%', maxWidth: '500px' }}>
+                                    <div className="d-flex justify-content-between align-items-center border-bottom pb-3 mb-4">
+                                        <h3 className="mb-0">Edit Document</h3>
+                                        <button className="btn btn-sm" onClick={() => setShowEditModal(false)} style={{ fontSize: '1.5rem', padding: 0, lineHeight: 1 }}>&times;</button>
+                                    </div>
+                                    <form onSubmit={handleEdit}>
+                                        <div className="form-group mb-4">
+                                            <label className="d-block mb-1 font-weight-bold font-sm">Document Title</label>
+                                            <input type="text" className="form-control w-100 p-2 border rounded" required value={formData.title} onChange={e => setFormData({ ...formData, title: e.target.value })} />
+                                        </div>
+                                        <div className="text-right pt-3 border-top">
+                                            <button type="button" className="btn btn-outline mr-2" onClick={() => setShowEditModal(false)}>Cancel</button>
+                                            <button type="submit" className="btn btn-primary">Save Changes</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>
@@ -184,4 +228,4 @@ const DocumentManagement = () => {
     );
 };
 
-export default DocumentManagement;
+export default DocumentsManagement;

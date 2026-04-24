@@ -23,6 +23,7 @@ import NigeriaImportGuide from './pages/NigeriaImportGuide';
 // Admin Pages
 import AdminLayout from './layouts/AdminLayout';
 import AdminHome from './pages/admin/AdminHome';
+import DocumentsManagement from './pages/admin/DocumentsManagement';
 import UsersManagement from './pages/admin/UsersManagement';
 import ShipmentsManagement from './pages/admin/ShipmentsManagement';
 import ServicesManagement from './pages/admin/ServicesManagement';
@@ -58,6 +59,7 @@ function App() {
         <Route element={<ProtectedRoute allowedRoles={['admin']} />}>
           <Route path="/admin" element={<AdminLayout />}>
             <Route index element={<AdminHome />} />
+            <Route path="documents" element={<DocumentsManagement />} />
             <Route path="users" element={<UsersManagement />} />
             <Route path="shipments" element={<ShipmentsManagement />} />
             <Route path="services" element={<ServicesManagement />} />
