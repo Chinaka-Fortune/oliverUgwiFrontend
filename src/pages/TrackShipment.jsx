@@ -187,6 +187,55 @@ const TrackShipment = () => {
                                             </div>
                                         </div>
                                     </div>
+
+                                    {/* Additional Shipment Details */}
+                                    <div className="mt-5">
+                                        <h5 className="mb-4 pb-2 border-bottom" style={{ color: 'var(--primary-navy)' }}>Shipment Details</h5>
+                                        <div className="row">
+                                            {shipmentData.bl_awb_no && (
+                                                <div className="col-md-6 mb-3">
+                                                    <span className="text-muted d-block font-sm">BL/ AWB No</span>
+                                                    <strong className="text-dark">{shipmentData.bl_awb_no}</strong>
+                                                </div>
+                                            )}
+                                            {shipmentData.consignment && (
+                                                <div className="col-md-6 mb-3">
+                                                    <span className="text-muted d-block font-sm">Consignment</span>
+                                                    <strong className="text-dark">{shipmentData.consignment}</strong>
+                                                </div>
+                                            )}
+                                            {shipmentData.vessel_airline && (
+                                                <div className="col-md-6 mb-3">
+                                                    <span className="text-muted d-block font-sm">Vessel/ Airline</span>
+                                                    <strong className="text-dark">{shipmentData.vessel_airline}</strong>
+                                                </div>
+                                            )}
+                                            {shipmentData.pol && (
+                                                <div className="col-md-6 mb-3">
+                                                    <span className="text-muted d-block font-sm">POL (Port of Loading)</span>
+                                                    <strong className="text-dark">{shipmentData.pol}</strong>
+                                                </div>
+                                            )}
+                                            {shipmentData.ets && (
+                                                <div className="col-md-6 mb-3">
+                                                    <span className="text-muted d-block font-sm">ETS (Est. Time of Sailing)</span>
+                                                    <strong className="text-dark">{shipmentData.ets}</strong>
+                                                </div>
+                                            )}
+                                            {shipmentData.pod && (
+                                                <div className="col-md-6 mb-3">
+                                                    <span className="text-muted d-block font-sm">POD (Port of Discharge)</span>
+                                                    <strong className="text-dark">{shipmentData.pod}</strong>
+                                                </div>
+                                            )}
+                                            {shipmentData.eta && (
+                                                <div className="col-md-6 mb-3">
+                                                    <span className="text-muted d-block font-sm">ETA (Est. Time of Arrival)</span>
+                                                    <strong className="text-dark">{shipmentData.eta}</strong>
+                                                </div>
+                                            )}
+                                        </div>
+                                    </div>
                                 </motion.div>
                             )}
                         </div>

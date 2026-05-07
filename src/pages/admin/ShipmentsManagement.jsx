@@ -12,10 +12,11 @@ const ShipmentsManagement = () => {
     const [showUpdateModal, setShowUpdateModal] = useState(false);
     const [editingShipment, setEditingShipment] = useState(null);
     const [formData, setFormData] = useState({
-        origin: '', destination: '', current_location: '', type: 'Maritime Logistics', status: 'Pending'
+        origin: '', destination: '', current_location: '', type: 'Maritime Logistics', status: 'Pending',
+        bl_awb_no: '', consignment: '', vessel_airline: '', pol: '', ets: '', pod: '', eta: ''
     });
     const [updateFormData, setUpdateFormData] = useState({
-        status: '', current_location: ''
+        status: '', current_location: '', bl_awb_no: '', consignment: '', vessel_airline: '', pol: '', ets: '', pod: '', eta: ''
     });
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
@@ -71,7 +72,10 @@ const ShipmentsManagement = () => {
 
             setSuccess(`Shipment created with Tracking ID: ${data.shipment.tracking_id}`);
             setShipments([data.shipment, ...shipments]);
-            setFormData({ origin: '', destination: '', current_location: '', type: 'Maritime Logistics', status: 'Pending' });
+            setFormData({ 
+                origin: '', destination: '', current_location: '', type: 'Maritime Logistics', status: 'Pending',
+                bl_awb_no: '', consignment: '', vessel_airline: '', pol: '', ets: '', pod: '', eta: ''
+            });
 
             setTimeout(() => {
                 setShowModal(false);
@@ -96,7 +100,14 @@ const ShipmentsManagement = () => {
                 },
                 body: JSON.stringify({
                     status: updateFormData.status,
-                    current_location: updateFormData.current_location
+                    current_location: updateFormData.current_location,
+                    bl_awb_no: updateFormData.bl_awb_no,
+                    consignment: updateFormData.consignment,
+                    vessel_airline: updateFormData.vessel_airline,
+                    pol: updateFormData.pol,
+                    ets: updateFormData.ets,
+                    pod: updateFormData.pod,
+                    eta: updateFormData.eta
                 })
             });
 
@@ -104,7 +115,19 @@ const ShipmentsManagement = () => {
             if (response.ok) {
                 const updated = shipments.map(s =>
                     s.id === editingShipment.id
-                        ? { ...s, status: updateFormData.status, current_location: updateFormData.current_location, updated_at: new Date().toISOString() }
+                        ? { 
+                            ...s, 
+                            status: updateFormData.status, 
+                            current_location: updateFormData.current_location, 
+                            bl_awb_no: updateFormData.bl_awb_no,
+                            consignment: updateFormData.consignment,
+                            vessel_airline: updateFormData.vessel_airline,
+                            pol: updateFormData.pol,
+                            ets: updateFormData.ets,
+                            pod: updateFormData.pod,
+                            eta: updateFormData.eta,
+                            updated_at: new Date().toISOString() 
+                          }
                         : s
                 );
                 setShipments(updated);
@@ -213,7 +236,17 @@ const ShipmentsManagement = () => {
                                                     title="Update Status"
                                                     onClick={() => {
                                                         setEditingShipment(shipment);
-                                                        setUpdateFormData({ status: shipment.status, current_location: shipment.current_location });
+                                                        setUpdateFormData({ 
+                                                            status: shipment.status, 
+                                                            current_location: shipment.current_location,
+                                                            bl_awb_no: shipment.bl_awb_no || '',
+                                                            consignment: shipment.consignment || '',
+                                                            vessel_airline: shipment.vessel_airline || '',
+                                                            pol: shipment.pol || '',
+                                                            ets: shipment.ets || '',
+                                                            pod: shipment.pod || '',
+                                                            eta: shipment.eta || ''
+                                                        });
                                                         setShowUpdateModal(true);
                                                     }}
                                                 >
@@ -246,13 +279,51 @@ const ShipmentsManagement = () => {
                             </div>
 
                             <form onSubmit={handleCreateShipment}>
-                                <div className="form-group mb-3">
-                                    <label className="d-block mb-1 font-weight-bold font-sm">Origin</label>
-                                    <input type="text" className="form-control w-100 p-2 border rounded" required value={formData.origin} onChange={e => setFormData({ ...formData, origin: e.target.value })} />
+                                <div className="row mb-3">
+                                    <div className="col-6">
+                                        <label className="d-block mb-1 font-weight-bold font-sm">Origin *</label>
+                                        <input type="text" className="form-control w-100 p-2 border rounded" required value={formData.origin} onChange={e => setFormData({ ...formData, origin: e.target.value })} />
+                                    </div>
+                                    <div className="col-6">
+                                        <label className="d-block mb-1 font-weight-bold font-sm">Destination *</label>
+                                        <input type="text" className="form-control w-100 p-2 border rounded" required value={formData.destination} onChange={e => setFormData({ ...formData, destination: e.target.value })} />
+                                    </div>
                                 </div>
-                                <div className="form-group mb-3">
-                                    <label className="d-block mb-1 font-weight-bold font-sm">Destination</label>
-                                    <input type="text" className="form-control w-100 p-2 border rounded" required value={formData.destination} onChange={e => setFormData({ ...formData, destination: e.target.value })} />
+                                <div className="row mb-3">
+                                    <div className="col-6">
+                                        <label className="d-block mb-1 font-weight-bold font-sm">BL/ AWB No</label>
+                                        <input type="text" className="form-control w-100 p-2 border rounded" value={formData.bl_awb_no} onChange={e => setFormData({ ...formData, bl_awb_no: e.target.value })} />
+                                    </div>
+                                    <div className="col-6">
+                                        <label className="d-block mb-1 font-weight-bold font-sm">Consignment</label>
+                                        <input type="text" className="form-control w-100 p-2 border rounded" value={formData.consignment} onChange={e => setFormData({ ...formData, consignment: e.target.value })} />
+                                    </div>
+                                </div>
+                                <div className="row mb-3">
+                                    <div className="col-12">
+                                        <label className="d-block mb-1 font-weight-bold font-sm">Vessel/ Airline</label>
+                                        <input type="text" className="form-control w-100 p-2 border rounded" value={formData.vessel_airline} onChange={e => setFormData({ ...formData, vessel_airline: e.target.value })} />
+                                    </div>
+                                </div>
+                                <div className="row mb-3">
+                                    <div className="col-6">
+                                        <label className="d-block mb-1 font-weight-bold font-sm">POL (Port of Loading)</label>
+                                        <input type="text" className="form-control w-100 p-2 border rounded" value={formData.pol} onChange={e => setFormData({ ...formData, pol: e.target.value })} />
+                                    </div>
+                                    <div className="col-6">
+                                        <label className="d-block mb-1 font-weight-bold font-sm">ETS</label>
+                                        <input type="text" className="form-control w-100 p-2 border rounded" placeholder="e.g. 2026-05-15" value={formData.ets} onChange={e => setFormData({ ...formData, ets: e.target.value })} />
+                                    </div>
+                                </div>
+                                <div className="row mb-3">
+                                    <div className="col-6">
+                                        <label className="d-block mb-1 font-weight-bold font-sm">POD (Port of Discharge)</label>
+                                        <input type="text" className="form-control w-100 p-2 border rounded" value={formData.pod} onChange={e => setFormData({ ...formData, pod: e.target.value })} />
+                                    </div>
+                                    <div className="col-6">
+                                        <label className="d-block mb-1 font-weight-bold font-sm">ETA</label>
+                                        <input type="text" className="form-control w-100 p-2 border rounded" placeholder="e.g. 2026-06-01" value={formData.eta} onChange={e => setFormData({ ...formData, eta: e.target.value })} />
+                                    </div>
                                 </div>
                                 <div className="row mb-3">
                                     <div className="col-6">
@@ -322,6 +393,46 @@ const ShipmentsManagement = () => {
                                         onChange={e => setUpdateFormData({ ...updateFormData, current_location: e.target.value })}
                                         placeholder="e.g. Lagos Port, Nigeria"
                                     />
+                                </div>
+
+                                {/* Additional Details Section (Optional) */}
+                                <h6 className="mt-4 mb-3 pb-2 border-bottom text-muted">Additional Details</h6>
+                                
+                                <div className="row mb-3">
+                                    <div className="col-6">
+                                        <label className="d-block mb-1 font-weight-bold font-sm">BL/ AWB No</label>
+                                        <input type="text" className="form-control w-100 p-2 border rounded" value={updateFormData.bl_awb_no} onChange={e => setUpdateFormData({ ...updateFormData, bl_awb_no: e.target.value })} />
+                                    </div>
+                                    <div className="col-6">
+                                        <label className="d-block mb-1 font-weight-bold font-sm">Consignment</label>
+                                        <input type="text" className="form-control w-100 p-2 border rounded" value={updateFormData.consignment} onChange={e => setUpdateFormData({ ...updateFormData, consignment: e.target.value })} />
+                                    </div>
+                                </div>
+                                <div className="row mb-3">
+                                    <div className="col-12">
+                                        <label className="d-block mb-1 font-weight-bold font-sm">Vessel/ Airline</label>
+                                        <input type="text" className="form-control w-100 p-2 border rounded" value={updateFormData.vessel_airline} onChange={e => setUpdateFormData({ ...updateFormData, vessel_airline: e.target.value })} />
+                                    </div>
+                                </div>
+                                <div className="row mb-3">
+                                    <div className="col-6">
+                                        <label className="d-block mb-1 font-weight-bold font-sm">POL</label>
+                                        <input type="text" className="form-control w-100 p-2 border rounded" value={updateFormData.pol} onChange={e => setUpdateFormData({ ...updateFormData, pol: e.target.value })} />
+                                    </div>
+                                    <div className="col-6">
+                                        <label className="d-block mb-1 font-weight-bold font-sm">ETS</label>
+                                        <input type="text" className="form-control w-100 p-2 border rounded" value={updateFormData.ets} onChange={e => setUpdateFormData({ ...updateFormData, ets: e.target.value })} />
+                                    </div>
+                                </div>
+                                <div className="row mb-3">
+                                    <div className="col-6">
+                                        <label className="d-block mb-1 font-weight-bold font-sm">POD</label>
+                                        <input type="text" className="form-control w-100 p-2 border rounded" value={updateFormData.pod} onChange={e => setUpdateFormData({ ...updateFormData, pod: e.target.value })} />
+                                    </div>
+                                    <div className="col-6">
+                                        <label className="d-block mb-1 font-weight-bold font-sm">ETA</label>
+                                        <input type="text" className="form-control w-100 p-2 border rounded" value={updateFormData.eta} onChange={e => setUpdateFormData({ ...updateFormData, eta: e.target.value })} />
+                                    </div>
                                 </div>
 
                                 <div className="text-right mt-4 pt-3 border-top">
